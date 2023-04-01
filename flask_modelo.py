@@ -3,7 +3,7 @@ from joblib import load
 import pandas as pd
 
 
-modelo, prepro = load('modelo.joblib') 
+modelo, prepro = load('modelo_zip.joblib') 
 
 def pipeline(tipo,barrio,sup,habs):
     X_pred=pd.DataFrame(columns=['tipo','barrio','sup','habs'])
@@ -14,7 +14,7 @@ def pipeline(tipo,barrio,sup,habs):
 # el modelo ya esta importado y listo
 
 # creamos la API
-from flask import Flask, jsonify, request
+from flask import Flask, jsonify, request,render_template
 
 web_app = Flask('miprimerweb')
 
@@ -26,7 +26,7 @@ web_app = Flask('miprimerweb')
 # y otra para el tasador
 
 def index():
-    return '<h1 style="color:blue">Hola mundo! Bienvenidos a nuestra primer web en python!</h1>'
+    return render_template('home.html')
 
 def about():
     return 'Somos estudiantes de coderhouse aprendiendo MLOps'
