@@ -2,8 +2,8 @@
 from joblib import load
 import pandas as pd
 
-
-Modelo, Preprocesador = load('modelo.joblib') 
+#Carga del modelo
+Modelo, Preprocesador = load('modelo_prepro.joblib') 
 
 def pipeline(tipo,barrio,sup,habs):
     X_pred=pd.DataFrame(columns=['tipo','barrio','sup','habs'])
@@ -11,6 +11,8 @@ def pipeline(tipo,barrio,sup,habs):
     X_pred_dummies=Preprocesador.transform(X_pred)    
     return Modelo.predict(X_pred_dummies)[0]
 
+
+# creamos la lista de opciones
 lista_features=list(Preprocesador.get_feature_names_out())
 
 lista_tipos=[x.split('tipo_')[1] for x in lista_features if 'tipo' in x]
@@ -21,6 +23,7 @@ lista_barrios=[x.split('barrio_')[1] for x in lista_features if 'barrio' in x]
 
 
 # el modelo ya esta importado y listo
+# generamos la web 
 import streamlit as st
 
 
